@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KTU Nexus | 5-Branch S1-S8 B.Tech 2024 Scheme Suite</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- KaTeX for Mathematical Typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  
+  <!-- Chart.js for Gantt and Analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  
+  <!-- Marked.js for Markdown Notes -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css?v=2.1">
+</head>
+<body class="flex h-screen text-slate-100 overflow-hidden select-none">
+
+  <!-- ========================================================================= -->
+  <!-- SIDEBAR NAVIGATION                                                        -->
+  <!-- ========================================================================= -->
+  <aside class="w-64 border-r border-slate-800/80 bg-[var(--bg-sidebar)] backdrop-blur-xl flex flex-col justify-between shrink-0 z-20">
+    <div>
+      <!-- Brand Logo -->
+      <div class="p-5 border-b border-slate-800/80 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+          <i class="fa-solid fa-graduation-cap text-xl"></i>
+        </div>
+        <div>
+          <h1 class="font-extrabold text-base tracking-tight bg-gradient-to-r from-indigo-300 via-purple-200 to-amber-200 bg-clip-text text-transparent">KTU Nexus</h1>
+          <p class="text-[10px] font-mono uppercase tracking-wider text-amber-400/90 font-semibold">NEP 2024 Scheme • S1–S8 Suite</p>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="p-3 space-y-1">
+        <button onclick="switchView('calculator')" id="nav-btn-calculator" class="nav-link w-full text-left active">
+          <i class="fa-solid fa-calculator text-cyan-400 w-5"></i>
+          <span>CIE & Supply Predictor</span>
+        </button>
+        <button onclick="switchView('courses')" id="nav-btn-courses" class="nav-link w-full text-left">
+          <i class="fa-solid fa-book-open text-emerald-400 w-5"></i>
+          <span>S1-S8 Syllabus & PYQ</span>
+        </button>
+        <button onclick="switchView('roadmap')" id="nav-btn-roadmap" class="nav-link w-full text-left">
+          <i class="fa-solid fa-route text-indigo-400 w-5"></i>
+          <span>170 Credits S1-S8 Matrix</span>
+        </button>
+        <button onclick="switchView('simulations')" id="nav-btn-simulations" class="nav-link w-full text-left">
+          <i class="fa-solid fa-flask text-purple-400 w-5"></i>
+          <span>Interactive Syllabus Labs</span>
+        </button>
+        <button onclick="switchView('activity')" id="nav-btn-activity" class="nav-link w-full text-left">
+          <i class="fa-solid fa-trophy text-amber-400 w-5"></i>
+          <span>120 Activity Points (3 Groups)</span>
+        </button>
+        <button onclick="switchView('answers')" id="nav-btn-answers" class="nav-link w-full text-left">
+          <i class="fa-solid fa-file-pen text-rose-400 w-5"></i>
+          <span>10-Mark Answer Architect</span>
+        </button>
+        <button onclick="switchView('notes')" id="nav-btn-notes" class="nav-link w-full text-left">
+          <i class="fa-solid fa-note-sticky text-blue-400 w-5"></i>
+          <span>Revision Notebook</span>
+        </button>
+        <div class="pt-2 border-t border-slate-800/60 my-1"></div>
+        <a href="/presentation" target="_blank" class="nav-link w-full text-left text-amber-400 hover:text-amber-300 font-medium flex items-center justify-between group">
+          <div class="flex items-center gap-2.5">
+            <i class="fa-solid fa-file-powerpoint text-amber-400 group-hover:scale-110 transition-transform w-5"></i>
+            <span class="font-semibold text-slate-200 group-hover:text-amber-300">Pitch Deck</span>
+          </div>
+          <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">11 SLIDES</span>
+        </a>
+        <a href="/download/pptx" download class="nav-link w-full text-left text-emerald-400 hover:text-emerald-300 font-medium flex items-center justify-between group">
+          <div class="flex items-center gap-2.5">
+            <i class="fa-solid fa-cloud-arrow-down text-emerald-400 group-hover:scale-110 transition-transform w-5"></i>
+            <span class="font-semibold text-slate-200 group-hover:text-emerald-300">Download .PPTX</span>
+          </div>
+          <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">PPT FILE</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Sidebar Footer -->
+    <div class="p-4 border-t border-slate-800/80 space-y-3">
+      <div class="glass-card p-2.5 flex items-center justify-between text-xs">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-slate-300 font-medium font-mono text-[11px]">NEP 2024 Scheme</span>
+        </div>
+        <span class="text-[10px] font-mono text-cyan-400">5 BATCHES</span>
+      </div>
+      <div class="flex items-center justify-between text-xs text-slate-400 px-1">
+        <span>Audio Feedback</span>
+        <button id="btn-sound-toggle" onclick="toggleAudioFeedback()" class="hover:text-cyan-400 transition-colors">
+          <i class="fa-solid fa-volume-high text-cyan-400"></i>
+        </button>
+      </div>
+      <div class="pt-2 border-t border-slate-800/60 px-1">
+        <p class="text-[10px] text-slate-400 leading-tight">Created by <span class="text-slate-200 font-semibold">Felix Louie Sojan</span> &amp; <span class="text-slate-200 font-semibold">Adithya Jobies</span></p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN WORKSPACE CONTAINER                                                  -->
+  <!-- ========================================================================= -->
+  <main class="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+
+    <!-- Top Bar with Global Telemetry & Theme Switcher -->
+    <header class="h-16 border-b border-slate-800/80 bg-[var(--bg-header)] backdrop-blur-md px-6 flex items-center justify-between shrink-0 z-10 gap-4">
+      <div class="flex items-center gap-4 flex-1 max-w-xl">
+        <div class="relative w-full">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+          <input type="text" id="global-search-input" placeholder="Search MECH, ECE, EEE, CE, CSE courses, modules, or questions..." 
+                 class="w-full pl-9 pr-4 py-2 bg-slate-900/80 border border-slate-800/90 rounded-xl text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-[var(--accent-primary)] focus:ring-1 focus:ring-[var(--accent-glow)] transition-all font-mono shadow-inner"
+                 oninput="handleGlobalSearch(this.value)">
+        </div>
+      </div>
+
+      <!-- Live Theme Preset Switcher -->
+      <div class="hidden lg:flex items-center gap-1 p-1 rounded-xl bg-slate-900/90 border border-slate-800/90 shadow-sm" id="theme-selector-bar">
+        <button onclick="setAppTheme('obsidian-indigo')" id="theme-btn-obsidian-indigo" title="Royal Obsidian (Electric Indigo & Champagne Amber)" class="theme-switch-btn px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 active text-slate-200">
+          <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 shadow-sm shadow-indigo-500/50"></span>
+          <span class="text-[11px] font-mono">Royal</span>
+        </button>
+        <button onclick="setAppTheme('cosmic-aurora')" id="theme-btn-cosmic-aurora" title="Cosmic Aurora (Nordic Teal & Coral Rose)" class="theme-switch-btn px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 text-slate-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-teal-400 shadow-sm shadow-teal-400/50"></span>
+          <span class="text-[11px] font-mono">Aurora</span>
+        </button>
+        <button onclick="setAppTheme('linear-titanium')" id="theme-btn-linear-titanium" title="Linear Titanium (Monochrome Carbon & Imperial Gold)" class="theme-switch-btn px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 text-slate-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-sm shadow-amber-400/50"></span>
+          <span class="text-[11px] font-mono">Titanium</span>
+        </button>
+        <button onclick="setAppTheme('emerald-matrix')" id="theme-btn-emerald-matrix" title="Oxford Emerald (Scholar Jade & Bronze)" class="theme-switch-btn px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 text-slate-300">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400/50"></span>
+          <span class="text-[11px] font-mono">Emerald</span>
+        </button>
+      </div>
+
+      <!-- Live KTU 2024 Rule Badges -->
+      <div class="flex items-center gap-3">
+        <div class="hidden xl:flex items-center gap-2 text-xs font-mono">
+          <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-slate-300 shadow-sm">
+            <span class="text-slate-500">Degree:</span>
+            <span class="text-indigo-400 font-bold">170 Cr</span>
+          </div>
+          <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-slate-300 shadow-sm">
+            <span class="text-slate-500">Activity:</span>
+            <span class="text-amber-400 font-bold">120 pts (3 Grps)</span>
+          </div>
+          <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/70 border border-slate-800 text-slate-300 shadow-sm">
+            <span class="text-slate-500">Min ESA:</span>
+            <span class="text-emerald-400 font-bold">40%</span>
+          </div>
+        </div>
+
+        <a href="/presentation" target="_blank" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-amber-500/15 text-amber-300 hover:bg-amber-500/25 border border-amber-500/35 flex items-center gap-1.5 transition-all shadow-sm shadow-amber-500/10">
+          <i class="fa-solid fa-file-powerpoint text-amber-400"></i>
+          <span>Pitch Deck</span>
+        </a>
+
+        <a href="/download/pptx" download class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-500/15 text-emerald-300 hover:bg-emerald-500/25 border border-emerald-500/35 flex items-center gap-1.5 transition-all shadow-sm shadow-emerald-500/10">
+          <i class="fa-solid fa-download text-emerald-400"></i>
+          <span>Download PPT</span>
+        </a>
+
+        <button onclick="switchView('calculator')" class="btn-cyber-primary py-1.5 px-3.5 text-xs">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Check Supply Risk</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Dynamic View Containers -->
+    <div class="flex-1 overflow-y-auto p-6 relative" id="main-scroll-pane">
+
+      <!-- ===================================================================== -->
+      <!-- VIEW 1: CIE CALCULATOR & SUPPLY RISK PREDICTOR                        -->
+      <!-- ===================================================================== -->
+      <section id="view-calculator" class="space-y-6">
+        <div class="glass-panel p-6 space-y-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
+            <div>
+              <span class="badge-neon-cyan">KTU 2024 Scheme Evaluator</span>
+              <h2 class="text-xl font-bold text-slate-100 mt-1">CIE Internal Mark & Supply Safety Predictor</h2>
+              <p class="text-xs text-slate-400 mt-1">
+                Calculate your Continuous Internal Evaluation (CIE) out of 50 and discover the exact minimum score you need in the 100-mark KTU University Exam (ESA).
+              </p>
+            </div>
+            <div id="calculator-risk-badge" class="px-4 py-2 rounded-xl text-center font-mono font-bold text-xs bg-emerald-500/10 border border-emerald-500/40 text-emerald-400">
+              LOW RISK POSITION
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2">
+            <!-- Input Sliders (5 cols) -->
+            <div class="lg:col-span-5 space-y-4">
+              <div class="space-y-3">
+                <div class="flex justify-between text-xs font-mono">
+                  <span class="text-slate-300 font-medium">Series Exam 1 (out of 50)</span>
+                  <span id="label-series1" class="text-cyan-400 font-bold">32 / 50</span>
+                </div>
+                <input type="range" id="input-series1" min="0" max="50" value="32" class="w-full accent-cyan-400" oninput="runCIECalculation()">
+              </div>
+
+              <div class="space-y-3">
+                <div class="flex justify-between text-xs font-mono">
+                  <span class="text-slate-300 font-medium">Series Exam 2 (out of 50)</span>
+                  <span id="label-series2" class="text-cyan-400 font-bold">36 / 50</span>
+                </div>
+                <input type="range" id="input-series2" min="0" max="50" value="36" class="w-full accent-cyan-400" oninput="runCIECalculation()">
+              </div>
+
+              <div class="space-y-3">
+                <div class="flex justify-between text-xs font-mono">
+                  <span class="text-slate-300 font-medium">Continuous Assessment / Assignments (out of 15)</span>
+                  <span id="label-assignment" class="text-purple-400 font-bold">12 / 15</span>
+                </div>
+                <input type="range" id="input-assignment" min="0" max="15" value="12" class="w-full accent-purple-400" oninput="runCIECalculation()">
+              </div>
+
+              <div class="space-y-3">
+                <div class="flex justify-between text-xs font-mono">
+                  <span class="text-slate-300 font-medium">Attendance Percentage (%)</span>
+                  <span id="label-attendance" class="text-emerald-400 font-bold">86 %</span>
+                </div>
+                <input type="range" id="input-attendance" min="50" max="100" value="86" class="w-full accent-emerald-400" oninput="runCIECalculation()">
+              </div>
+
+              <!-- Internal Marks Breakdown Summary -->
+              <div class="glass-card p-4 space-y-2 font-mono text-xs border-cyan-500/20">
+                <div class="flex justify-between text-slate-400">
+                  <span>Series Contribution (Avg / 50 * 25):</span>
+                  <span id="out-series-contrib" class="text-slate-200">17.0 / 25</span>
+                </div>
+                <div class="flex justify-between text-slate-400">
+                  <span>Assignment Marks:</span>
+                  <span id="out-assign-contrib" class="text-slate-200">12.0 / 15</span>
+                </div>
+                <div class="flex justify-between text-slate-400">
+                  <span>Attendance Weightage:</span>
+                  <span id="out-att-contrib" class="text-slate-200">8.0 / 10</span>
+                </div>
+                <div class="flex justify-between text-sm font-bold text-cyan-400 pt-2 border-t border-slate-800">
+                  <span>Total Internal Mark (CIE):</span>
+                  <span id="out-total-cie">37.0 / 50</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Target Grade Table & Advice (7 cols) -->
+            <div class="lg:col-span-7 space-y-4">
+              <div class="glass-card p-4 space-y-3 border-amber-500/30">
+                <div class="flex items-center gap-2 text-amber-400 font-mono text-xs font-bold uppercase">
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                  <span>Supply Risk Analysis & Preparation Advice</span>
+                </div>
+                <p id="calculator-advice-text" class="text-xs text-slate-300 leading-relaxed font-sans">
+                  Calculating your optimal exam threshold...
+                </p>
+              </div>
+
+              <!-- Required Marks Table for Each Grade -->
+              <div class="glass-panel overflow-hidden">
+                <div class="p-3 bg-slate-900/80 border-b border-slate-800 text-xs font-mono text-slate-300 font-bold flex justify-between">
+                  <span>Target Grade</span>
+                  <span>Minimum University Exam Score (ESA / 100)</span>
+                </div>
+                <div id="grade-targets-table" class="divide-y divide-slate-800/60 text-xs"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- VIEW 2: 5-BRANCH S1-S8 5-MODULE SYLLABUS & PYQ MASTER                 -->
+      <!-- ===================================================================== -->
+      <section id="view-courses" class="hidden space-y-6">
+        <!-- Branch & Semester Filter Deck -->
+        <div class="glass-panel p-4 space-y-3">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <span class="text-xs font-mono text-slate-400 uppercase font-bold">Select Engineering Branch:</span>
+            <div class="flex items-center gap-1.5 flex-wrap" id="branch-pills-container">
+              <button onclick="setBranchFilter('all')" class="branch-pill-btn px-3 py-1 rounded-full text-xs font-semibold theme-pill-active border" id="pill-branch-all">All Branches</button>
+              <button onclick="setBranchFilter('cse')" class="branch-pill-btn px-3 py-1 rounded-full text-xs font-semibold bg-slate-800/80 text-slate-300 hover:bg-slate-700/80 border border-transparent" id="pill-branch-cse">CSE</button>
+              <button onclick="setBranchFilter('ece')" class="branch-pill-btn px-3 py-1 rounded-full text-xs font-semibold bg-slate-800/80 text-slate-300 hover:bg-slate-700/80 border border-transparent" id="pill-branch-ece">ECE</button>
+              <button onclick="setBranchFilter('eee')" class="branch-pill-btn px-3 py-1 rounded-full text-xs font-semibold bg-slate-800/80 text-slate-300 hover:bg-slate-700/80 border border-transparent" id="pill-branch-eee">EEE</button>
+              <button onclick="setBranchFilter('mech')" class="branch-pill-btn px-3 py-1 rounded-full text-xs font-semibold bg-slate-800/80 text-slate-300 hover:bg-slate-700/80 border border-transparent" id="pill-branch-mech">MECH</button>
+              <button onclick="setBranchFilter('ce_cn')" class="branch-pill-btn px-3 py-1 rounded-full text-xs font-semibold bg-slate-800/80 text-slate-300 hover:bg-slate-700/80 border border-transparent" id="pill-branch-ce_cn">CE / CN</button>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between flex-wrap gap-3 pt-2 border-t border-slate-800">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono text-slate-400">Semester:</span>
+              <select id="semester-filter-dropdown" class="bg-slate-900 border border-slate-700 rounded-lg text-xs px-2.5 py-1 text-slate-200" onchange="filterCourses()">
+                <option value="all">All Semesters (S1–S8)</option>
+                <option value="Semester 1">Semester 1 (S1)</option>
+                <option value="Semester 2">Semester 2 (S2)</option>
+                <option value="Semester 3">Semester 3 (S3)</option>
+                <option value="Semester 4">Semester 4 (S4)</option>
+                <option value="Semester 5">Semester 5 (S5)</option>
+                <option value="Semester 6">Semester 6 (S6)</option>
+                <option value="Semester 7">Semester 7 (S7)</option>
+                <option value="Semester 8">Semester 8 (S8)</option>
+              </select>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono text-slate-400">Course:</span>
+              <select id="course-selector-dropdown" class="bg-slate-900 border border-slate-700 rounded-lg text-xs px-3 py-1 text-slate-100 font-medium" onchange="loadCourseDetails(this.value)">
+                <!-- Dynamically populated based on branch/semester -->
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course Header Info Card -->
+        <div class="glass-card p-5 space-y-2 border-emerald-500/20">
+          <div class="flex items-center justify-between">
+            <h2 id="course-title-header" class="text-lg font-bold text-slate-100">Course Title</h2>
+            <span id="course-credits-badge" class="text-xs font-mono text-cyan-400">Credits • 5 Modules</span>
+          </div>
+          <p id="course-meta-header" class="text-xs text-slate-400 font-mono">Semester • Branch</p>
+        </div>
+
+        <!-- 5-Module Accordion Deck -->
+        <div id="course-modules-deck" class="space-y-4"></div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- VIEW: S1-S8 170 CREDITS MATRIX ROADMAP                                -->
+      <!-- ===================================================================== -->
+      <section id="view-roadmap" class="hidden space-y-6">
+        <div class="glass-panel p-6 space-y-4">
+          <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+            <div>
+              <span class="badge-neon-purple">KTU 2024 Scheme Curriculum Architecture</span>
+              <h2 class="text-xl font-bold text-slate-100 mt-1">170 Total Credits Progression (S1 to S8)</h2>
+              <p class="text-xs text-slate-400 mt-1">167 Academic Credits + 3 Activity Credits (from 120 Activity Points) required for B.Tech graduation.</p>
+            </div>
+            <span class="text-xs font-mono text-indigo-400 font-bold px-3 py-1 bg-indigo-500/10 rounded border border-indigo-500/30">+15 Credits for Honours/Minor</span>
+          </div>
+
+          <!-- S1 to S8 Grid Cards -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2">
+            <div class="glass-card p-4 space-y-2 border-cyan-500/30">
+              <div class="flex justify-between items-center text-xs font-mono">
+                <span class="font-bold text-cyan-400">SEMESTER 1</span>
+                <span class="badge-neon-cyan">20 Credits</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Calculus & Linear Algebra, Physics/Chemistry, Basics of Electrical/Civil, Mechanics, Life Skills.</p>
+            </div>
+            <div class="glass-card p-4 space-y-2 border-cyan-500/30">
+              <div class="flex justify-between items-center text-xs font-mono">
+                <span class="font-bold text-cyan-400">SEMESTER 2</span>
+                <span class="badge-neon-cyan">24 Credits</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Differential Equations, Programming in C, Engineering Graphics, Basics of Electronics/Mech, SEC Digital 101.</p>
+            </div>
+            <div class="glass-card p-4 space-y-2 border-emerald-500/30">
+              <div class="flex justify-between items-center text-xs font-mono">
+                <span class="font-bold text-emerald-400">SEMESTER 3</span>
+                <span class="badge-neon-emerald">25 Credits</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Branch Core Part 1 (Data Structures / Solid State Devices / Circuits / Thermodynamics / Solids), Discrete Math / PDE.</p>
+            </div>
+            <div class="glass-card p-4 space-y-2 border-emerald-500/30">
+              <div class="flex justify-between items-center text-xs font-mono">
+                <span class="font-bold text-emerald-400">SEMESTER 4</span>
+                <span class="badge-neon-emerald">24 Credits</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Branch Core Part 2 (COA / Analog Circuits / Machines / Fluid Mech / Structural Analysis), Constitution of India.</p>
+            </div>
+            <div class="glass-card p-4 space-y-2 border-purple-500/30">
+              <div class="flex justify-between items-center text-xs font-mono">
+                <span class="font-bold text-purple-400">SEMESTER 5</span>
+                <span class="badge-neon-purple">23 Credits</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Advanced Core (FLAT / DSP / Power Systems / Heat Transfer), Program Elective I, Management.</p>
+            </div>
+            <div class="glass-card p-4 space-y-2 border-purple-500/30">
+              <div class="flex justify-between items-center text-xs font-mono">
+                <span class="font-bold text-purple-400">SEMESTER 6</span>
+                <span class="badge-neon-purple">23 Credits</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Compiler Design / VLSI / Power Electronics / CAD-CAM, Program Elective II, Open Elective I, Mini Project.</p>
+            </div>
+            <div class="glass-card p-4 space-y-2 border-amber-500/30">
+              <div class="flex justify-between items-center text-xs font-mono">
+                <span class="font-bold text-amber-400">SEMESTER 7</span>
+                <span class="badge-neon-amber">17 Credits</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Artificial Intelligence / Wireless Comm, Program Electives III & IV, Project Phase I, Mandatory Core Internship.</p>
+            </div>
+            <div class="glass-card p-4 space-y-2 border-amber-500/30">
+              <div class="flex justify-between items-center text-xs font-mono">
+                <span class="font-bold text-amber-400">SEMESTER 8</span>
+                <span class="badge-neon-amber">11 Credits</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Major Project Phase II, Comprehensive Course Viva Voce, Program Elective V. Degree Complete!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- VIEW 3: INTERACTIVE SYLLABUS LABS                                     -->
+      <!-- ===================================================================== -->
+      <section id="view-simulations" class="hidden space-y-6">
+        <div class="glass-panel p-4 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-2">
+            <button onclick="switchLabTab('cpu')" id="btn-lab-cpu" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-400 border border-cyan-500/40">
+              CPU Scheduling (FCFS & RR)
+            </button>
+            <button onclick="switchLabTab('kmap')" id="btn-lab-kmap" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">
+              K-Map Minimizer
+            </button>
+            <button onclick="switchLabTab('bst')" id="btn-lab-bst" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">
+              Binary Search Tree (BST)
+            </button>
+          </div>
+          <span class="text-xs font-mono text-slate-400">Interactive Visualizers for KTU 10-Mark Problems</span>
+        </div>
+
+        <!-- TAB 1: CPU Scheduling Simulator -->
+        <div id="lab-tab-cpu" class="space-y-4">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-1 glass-panel p-5 space-y-4">
+              <h3 class="text-sm font-bold text-slate-100 font-mono uppercase">Process Inputs</h3>
+              <p class="text-xs text-slate-400">Solve typical KTU Module 2 OS scheduling questions interactively.</p>
+
+              <div class="space-y-2" id="cpu-process-inputs">
+                <div class="flex items-center gap-2 text-xs font-mono">
+                  <span class="w-8 text-cyan-400 font-bold">P1</span>
+                  <input type="number" value="0" min="0" class="w-16 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs" id="p1-arr" placeholder="Arr">
+                  <input type="number" value="5" min="1" class="w-16 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs" id="p1-bur" placeholder="Burst">
+                </div>
+                <div class="flex items-center gap-2 text-xs font-mono">
+                  <span class="w-8 text-cyan-400 font-bold">P2</span>
+                  <input type="number" value="1" min="0" class="w-16 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs" id="p2-arr" placeholder="Arr">
+                  <input type="number" value="3" min="1" class="w-16 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs" id="p2-bur" placeholder="Burst">
+                </div>
+                <div class="flex items-center gap-2 text-xs font-mono">
+                  <span class="w-8 text-cyan-400 font-bold">P3</span>
+                  <input type="number" value="2" min="0" class="w-16 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs" id="p3-arr" placeholder="Arr">
+                  <input type="number" value="8" min="1" class="w-16 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs" id="p3-bur" placeholder="Burst">
+                </div>
+                <div class="flex items-center gap-2 text-xs font-mono">
+                  <span class="w-8 text-cyan-400 font-bold">P4</span>
+                  <input type="number" value="3" min="0" class="w-16 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs" id="p4-arr" placeholder="Arr">
+                  <input type="number" value="6" min="1" class="w-16 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs" id="p4-bur" placeholder="Burst">
+                </div>
+              </div>
+
+              <div class="pt-2 space-y-2">
+                <div class="flex justify-between text-xs font-mono">
+                  <span class="text-slate-300">Round Robin Quantum (q)</span>
+                  <span id="label-rr-quantum" class="text-purple-400 font-bold">2 ms</span>
+                </div>
+                <input type="range" id="input-rr-quantum" min="1" max="5" value="2" class="w-full accent-purple-400" oninput="updateRRQuantum(this.value)">
+              </div>
+
+              <button onclick="runCPUSchedulingSim()" class="btn-cyber-primary w-full py-2 text-xs">
+                <i class="fa-solid fa-play"></i> Generate Gantt Charts
+              </button>
+            </div>
+
+            <!-- Gantt Charts & Results Deck -->
+            <div class="lg:col-span-2 space-y-4">
+              <div class="glass-panel p-5 space-y-3">
+                <div class="flex items-center justify-between">
+                  <h4 class="text-xs font-bold text-cyan-400 font-mono uppercase">First-Come, First-Served (FCFS) Gantt Chart</h4>
+                  <span class="text-[11px] font-mono text-slate-400" id="fcfs-metrics">Avg Waiting: 5.75 ms • Avg TAT: 11.25 ms</span>
+                </div>
+                <div id="fcfs-gantt-bar" class="flex h-10 w-full rounded-lg overflow-hidden border border-slate-800 text-xs font-mono font-bold"></div>
+              </div>
+
+              <div class="glass-panel p-5 space-y-3">
+                <div class="flex items-center justify-between">
+                  <h4 class="text-xs font-bold text-purple-400 font-mono uppercase">Round Robin (RR) Gantt Chart</h4>
+                  <span class="text-[11px] font-mono text-slate-400" id="rr-metrics">Avg Waiting: 7.25 ms • Avg TAT: 12.75 ms</span>
+                </div>
+                <div id="rr-gantt-bar" class="flex h-10 w-full rounded-lg overflow-hidden border border-slate-800 text-xs font-mono font-bold"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: K-Map Minimizer -->
+        <div id="lab-tab-kmap" class="hidden space-y-4">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-1 glass-panel p-5 space-y-4">
+              <h3 class="text-sm font-bold text-slate-100 font-mono uppercase">4-Variable K-Map Solver</h3>
+              <p class="text-xs text-slate-400">Click any cell to toggle minterms ($0 \to 1 \to X$). Watch prime implicants group dynamically.</p>
+              
+              <div class="p-3 bg-slate-900/80 rounded-lg border border-slate-800 text-xs font-mono space-y-2">
+                <div class="text-slate-400">Active Minterms $\Sigma m$:</div>
+                <div id="kmap-minterms-label" class="text-cyan-400 font-bold">0, 1, 2, 5, 8, 9, 10</div>
+              </div>
+
+              <div class="p-3 bg-slate-900/80 rounded-lg border border-slate-800 text-xs font-mono space-y-2">
+                <div class="text-slate-400">Simplified Boolean SOP:</div>
+                <div id="kmap-result-expr" class="text-emerald-400 font-bold text-sm">F = B' D' + B' C' + A' B C' D</div>
+              </div>
+
+              <button onclick="resetKMap()" class="btn-cyber-secondary w-full py-2 text-xs">Reset All Cells to 0</button>
+            </div>
+
+            <div class="lg:col-span-2 glass-panel p-6 flex flex-col items-center justify-center space-y-4">
+              <span class="text-xs font-mono text-slate-400">Interactive 4x4 Gray Code Grid ($AB \downarrow, CD \rightarrow$)</span>
+              <div id="kmap-grid-container" class="grid grid-cols-4 gap-2 w-80"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: BST Simulator -->
+        <div id="lab-tab-bst" class="hidden space-y-4">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-1 glass-panel p-5 space-y-4">
+              <h3 class="text-sm font-bold text-slate-100 font-mono uppercase">Binary Search Tree (BST)</h3>
+              <p class="text-xs text-slate-400">Insert values into the BST and compute traversals instantly for your exams.</p>
+
+              <div class="flex gap-2">
+                <input type="number" id="bst-new-val" placeholder="Value (e.g. 50)" class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-1.5 text-xs">
+                <button onclick="insertBSTNode()" class="btn-cyber-primary py-1.5 px-4 text-xs">Insert</button>
+              </div>
+
+              <div class="pt-2 border-t border-slate-800 text-xs font-mono space-y-2">
+                <div>Tree Height: <b id="bst-height" class="text-cyan-400">3</b></div>
+                <div>Node Count: <b id="bst-count" class="text-purple-400">7</b></div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-2 glass-panel p-5 space-y-4">
+              <h4 class="text-xs font-bold text-slate-300 font-mono uppercase">Tree Traversals</h4>
+              <div class="space-y-3 font-mono text-xs">
+                <div class="p-3 bg-slate-900/80 rounded-lg border border-slate-800 flex justify-between items-center">
+                  <span class="text-slate-400">Inorder (Left, Root, Right):</span>
+                  <span id="bst-inorder" class="text-emerald-400 font-bold">12, 23, 34, 45, 55, 65, 78</span>
+                </div>
+                <div class="p-3 bg-slate-900/80 rounded-lg border border-slate-800 flex justify-between items-center">
+                  <span class="text-slate-400">Preorder (Root, Left, Right):</span>
+                  <span id="bst-preorder" class="text-cyan-400 font-bold">45, 23, 12, 34, 65, 55, 78</span>
+                </div>
+                <div class="p-3 bg-slate-900/80 rounded-lg border border-slate-800 flex justify-between items-center">
+                  <span class="text-slate-400">Postorder (Left, Right, Root):</span>
+                  <span id="bst-postorder" class="text-purple-400 font-bold">12, 34, 23, 55, 78, 65, 45</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- VIEW 4: REVISED KTU 2024 SCHEME 120 ACTIVITY POINTS (3 GROUPS)       -->
+      <!-- ===================================================================== -->
+      <section id="view-activity" class="hidden space-y-6">
+        <div class="glass-panel p-6 space-y-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
+            <div>
+              <span class="badge-neon-amber">Official KTU 2024 Regulation</span>
+              <h2 class="text-xl font-bold text-slate-100 mt-1">120 Activity Points Tracker (The Three-Group Rule)</h2>
+              <p class="text-xs text-slate-400 mt-1">
+                Under the revised 2024 scheme, students must earn <b class="text-amber-400">120 points</b> (yielding 3 credits), with a strict rule: <b class="text-cyan-400">Minimum 40 points in EACH of the 3 groups</b>.
+              </p>
+            </div>
+            <div class="text-right font-mono">
+              <div class="text-2xl font-extrabold text-amber-400" id="activity-total-points">0 / 120</div>
+              <p class="text-[11px] text-slate-400">Total Verified Points</p>
+            </div>
+          </div>
+
+          <!-- Overall Progress Bar -->
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs font-mono">
+              <span class="text-slate-300 font-bold">Overall Progress to 3 Activity Credits</span>
+              <span id="activity-overall-pct" class="text-cyan-400 font-bold">0%</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-3.5 overflow-hidden p-0.5 border border-slate-700">
+              <div id="activity-progress-bar" class="bg-gradient-to-r from-cyan-500 via-indigo-500 to-emerald-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <!-- Three-Group Compliance Status Banner -->
+          <div id="activity-compliance-banner" class="p-3.5 rounded-lg border text-xs font-mono flex items-center justify-between"></div>
+
+          <!-- The Three Activity Groups Cards Deck -->
+          <div id="activity-groups-deck" class="grid grid-cols-1 lg:grid-cols-3 gap-5 pt-2"></div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- VIEW 5: 10-MARK ANSWER ARCHITECT (ALL BRANCHES)                       -->
+      <!-- ===================================================================== -->
+      <section id="view-answers" class="hidden space-y-6">
+        <div class="glass-panel p-6 space-y-4">
+          <div>
+            <span class="badge-neon-rose text-rose-400 bg-rose-500/10 border-rose-500/30">KTU Exam Scoring Strategy</span>
+            <h2 class="text-xl font-bold text-slate-100 mt-1">10-Mark Model Answer Architect (CSE, ECE, MECH, CE)</h2>
+            <p class="text-xs text-slate-400 mt-1">
+              KTU university evaluators follow strict marking schemes. Discover the exact structural anatomy that scores full 10/10 marks across engineering disciplines.
+            </p>
+          </div>
+
+          <div id="answer-blueprints-deck" class="space-y-6 pt-2"></div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- VIEW 6: REVISION NOTEBOOK                                             -->
+      <!-- ===================================================================== -->
+      <section id="view-notes" class="hidden space-y-4">
+        <div class="glass-panel p-4 flex flex-wrap items-center justify-between gap-4">
+          <button onclick="createNewNote()" class="btn-cyber-primary py-1.5 px-3 text-xs">
+            <i class="fa-solid fa-plus"></i> New Revision Sheet
+          </button>
+          <span class="text-xs font-mono text-slate-400">Markdown & Formula Editor</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div class="lg:col-span-3 space-y-2">
+            <div id="notes-sidebar-list" class="space-y-2 max-h-[640px] overflow-y-auto"></div>
+          </div>
+          <div class="lg:col-span-4 glass-panel p-4 flex flex-col space-y-3 h-[640px]">
+            <input type="text" id="note-title-input" placeholder="Sheet Title" class="bg-slate-900 border border-slate-800 rounded px-3 py-1.5 text-sm font-bold text-slate-100 focus:outline-none focus:border-cyan-500">
+            <textarea id="note-content-input" placeholder="Type notes with formulas ($R_0 = \beta / \gamma$)..." class="flex-1 w-full bg-slate-900/90 border border-slate-800 rounded p-3 text-xs font-mono text-slate-200 focus:outline-none focus:border-cyan-500 resize-none leading-relaxed" oninput="updateNotePreview()"></textarea>
+            <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+              <span class="text-[11px] font-mono text-slate-500">Auto-saved locally</span>
+              <button onclick="saveCurrentNote()" class="btn-cyber-primary py-1 px-3 text-xs">Save Sheet</button>
+            </div>
+          </div>
+          <div class="lg:col-span-5 glass-panel p-5 overflow-y-auto h-[640px] space-y-3">
+            <div id="note-preview-pane" class="prose prose-invert prose-sm max-w-none text-slate-200 text-xs leading-relaxed space-y-3"></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Application Scripts -->
+  <script src="js/app.js?v=2.1"></script>
+  <script src="js/simulations.js?v=2.1"></script>
+  <script src="js/notes.js?v=2.1"></script>
+
+</body>
+</html>
